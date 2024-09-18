@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using phonebookef.services;
+using Spectre.Console;
 
 bool isAppRunning = true;
 
@@ -15,6 +16,21 @@ while (isAppRunning)
                 menuOptions.ViewAllContacts
             )
     );
+
+    switch (option)
+    {
+        case menuOptions.AddContact:
+            PersonServices.AddPerson();
+            break;
+        case menuOptions.UpdateContact:
+            break;
+        case menuOptions.DeleteContact:
+            break;
+        case menuOptions.ViewContact:
+            break;
+        case menuOptions.ViewAllContacts:
+            break;
+    }
 }
 
 enum menuOptions
