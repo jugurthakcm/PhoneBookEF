@@ -39,4 +39,21 @@ internal class PersonServices
 
         Console.Clear();
     }
+
+    internal static void GetPersonById()
+    {
+        var people = PersonController.GetAllPeople();
+
+        var peopleNames = people.Select(p => p.Name).ToArray();
+
+        var option = AnsiConsole.Prompt(
+            new SelectionPrompt<string>().Title("Choose a person to view:").AddChoices(peopleNames)
+        );
+
+        var personId = people.Single(p => p.Name == option).Id;
+
+        var person = PersonController.GetPersonById(personId);
+
+      UserInterface.ViewPerson(person);
+    }
 }

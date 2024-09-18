@@ -17,4 +17,11 @@ internal class PersonController
 
         return db.People.ToList();
     }
+
+    internal static Person GetPersonById(int id)
+    {
+        using var db = new PersonContext();
+
+        return db.People.SingleOrDefault(p => p.Id == id);
+    }
 }

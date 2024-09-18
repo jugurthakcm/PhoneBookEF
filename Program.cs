@@ -28,6 +28,8 @@ while (isAppRunning)
         case menuOptions.DeleteContact:
             break;
         case menuOptions.ViewContact:
+            PersonServices.GetPersonById();
+
             break;
         case menuOptions.ViewAllContacts:
             PersonServices.GetAllPeople();
