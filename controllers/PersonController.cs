@@ -10,4 +10,11 @@ internal class PersonController
         db.Add(person);
         db.SaveChanges();
     }
+
+    internal static List<Person> GetAllPeople()
+    {
+        using var db = new PersonContext();
+
+        return db.People.ToList();
+    }
 }

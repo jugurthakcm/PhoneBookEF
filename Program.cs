@@ -1,4 +1,5 @@
 ﻿using phonebookef.services;
+using phonebookef.ui;
 using Spectre.Console;
 
 bool isAppRunning = true;
@@ -29,6 +30,7 @@ while (isAppRunning)
         case menuOptions.ViewContact:
             break;
         case menuOptions.ViewAllContacts:
+            PersonServices.GetAllPeople();
             break;
     }
 }

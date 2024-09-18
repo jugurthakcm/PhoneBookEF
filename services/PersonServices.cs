@@ -1,5 +1,6 @@
 using phonebookef.controllers;
 using phonebookef.models;
+using phonebookef.ui;
 using Spectre.Console;
 
 namespace phonebookef.services;
@@ -21,6 +22,17 @@ internal class PersonServices
             };
 
         PersonController.AddPerson(person);
+
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadLine();
+
+        Console.Clear();
+    }
+
+    internal static void GetAllPeople()
+    {
+        var people = PersonController.GetAllPeople();
+        UserInterface.ShowAllContacts(people);
 
         Console.WriteLine("Press any key to continue...");
         Console.ReadLine();
