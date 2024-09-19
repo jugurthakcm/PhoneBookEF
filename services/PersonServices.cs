@@ -1,6 +1,7 @@
 using phonebookef.controllers;
 using phonebookef.models;
 using phonebookef.ui;
+using phonebookef.validation;
 using Spectre.Console;
 
 namespace phonebookef.services;
@@ -12,6 +13,12 @@ internal class PersonServices
         var name = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's name?"));
         var phone = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's phone number?"));
         var email = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's email?"));
+
+        while (!Validation.ValidateEmail(email))
+        {
+            AnsiConsole.MarkupLine("[red]Wrong email format[/]");
+            email = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's email?"));
+        }
 
         Person person =
             new()
@@ -75,11 +82,17 @@ internal class PersonServices
 
         person.Phone = AnsiConsole.Confirm("Update phone number?")
             ? AnsiConsole.Ask<string>("Person's new phone number:")
-            : person.Name;
+            : person.Phone;
 
         person.Email = AnsiConsole.Confirm("Update email?")
             ? AnsiConsole.Ask<string>("Person's new email:")
-            : person.Name;
+            : person.Email;
+
+        while (!Validation.ValidateEmail(person.Email))
+        {
+            AnsiConsole.MarkupLine("[red]Wrong email format[/]");
+            person.Email = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's email?"));
+        }
 
         PersonController.UpdatePerson(person);
     }
@@ -90,7 +103,7 @@ internal class PersonServices
 
         if (people.Count == 0)
         {
-            Console.WriteLine("No contacts to display.");
+            Console.WriteLine("No contacts to display.\n\n");
             return null;
         }
 

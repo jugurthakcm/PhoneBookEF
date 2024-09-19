@@ -17,7 +17,7 @@ internal class UserInterface
 
         foreach (var p in people)
         {
-            table.AddRow(p.Id.ToString(), p.Name, p.Phone, p.Name);
+            table.AddRow(p.Id.ToString(), p.Name, p.Phone, p.Email);
         }
 
         AnsiConsole.Write(table);
