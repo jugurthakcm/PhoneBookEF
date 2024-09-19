@@ -1,3 +1,4 @@
+using System.Data.Common;
 using phonebookef.models;
 
 namespace phonebookef.controllers;
@@ -31,6 +32,14 @@ internal class PersonController
 
         db.Remove(person);
 
+        db.SaveChanges();
+    }
+
+    internal static void UpdatePerson(Person person)
+    {
+        using var db = new PersonContext();
+
+        db.Update(person);
         db.SaveChanges();
     }
 }

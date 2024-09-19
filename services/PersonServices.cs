@@ -44,6 +44,9 @@ internal class PersonServices
     {
         var person = GetPersonOptionInput();
 
+        if (person == null)
+            return;
+
         UserInterface.ViewPerson(person);
     }
 
@@ -51,14 +54,45 @@ internal class PersonServices
     {
         var person = GetPersonOptionInput();
 
+        if (person == null)
+            return;
+
         PersonController.DeletePerson(person);
 
         Console.Clear();
     }
 
+    internal static void UpdatePerson()
+    {
+        var person = GetPersonOptionInput();
+
+        if (person == null)
+            return;
+
+        person.Name = AnsiConsole.Confirm("Update name?")
+            ? AnsiConsole.Ask<string>("Person's new name:")
+            : person.Name;
+
+        person.Phone = AnsiConsole.Confirm("Update phone number?")
+            ? AnsiConsole.Ask<string>("Person's new phone number:")
+            : person.Name;
+
+        person.Email = AnsiConsole.Confirm("Update email?")
+            ? AnsiConsole.Ask<string>("Person's new email:")
+            : person.Name;
+
+        PersonController.UpdatePerson(person);
+    }
+
     internal static Person GetPersonOptionInput()
     {
         var people = PersonController.GetAllPeople();
+
+        if (people.Count == 0)
+        {
+            Console.WriteLine("No contacts to display.");
+            return null;
+        }
 
         var peopleNames = people.Select(p => p.Name).ToArray();
 

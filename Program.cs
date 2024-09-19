@@ -24,6 +24,7 @@ while (isAppRunning)
             PersonServices.AddPerson();
             break;
         case menuOptions.UpdateContact:
+            PersonServices.UpdatePerson();
             break;
         case menuOptions.DeleteContact:
             PersonServices.DeletePerson();
