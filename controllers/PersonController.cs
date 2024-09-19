@@ -24,4 +24,13 @@ internal class PersonController
 
         return db.People.SingleOrDefault(p => p.Id == id);
     }
+
+    internal static void DeletePerson(Person person)
+    {
+        using var db = new PersonContext();
+
+        db.Remove(person);
+
+        db.SaveChanges();
+    }
 }

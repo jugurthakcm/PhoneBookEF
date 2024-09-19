@@ -26,6 +26,7 @@ while (isAppRunning)
         case menuOptions.UpdateContact:
             break;
         case menuOptions.DeleteContact:
+            PersonServices.DeletePerson();
             break;
         case menuOptions.ViewContact:
             PersonServices.GetPersonById();
