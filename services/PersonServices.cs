@@ -11,7 +11,16 @@ internal class PersonServices
     internal static void AddPerson()
     {
         var name = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's name?"));
+
+        // Ask for person's phone and validate it
         var phone = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's phone number?"));
+        while (!Validation.ValidatePhone(phone))
+        {
+            AnsiConsole.MarkupLine("[red]Wrong phone number format[/]");
+            phone = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's phone number?"));
+        }
+
+        // Ask for person's email and validate it
         var email = AnsiConsole.Prompt(new TextPrompt<string>("What's the person's email?"));
 
         while (!Validation.ValidateEmail(email))
@@ -80,10 +89,20 @@ internal class PersonServices
             ? AnsiConsole.Ask<string>("Person's new name:")
             : person.Name;
 
+        // Ask for person's phone and validate it
         person.Phone = AnsiConsole.Confirm("Update phone number?")
             ? AnsiConsole.Ask<string>("Person's new phone number:")
             : person.Phone;
 
+        while (!Validation.ValidatePhone(person.Phone))
+        {
+            AnsiConsole.MarkupLine("[red]Wrong phone number format[/]");
+            person.Phone = AnsiConsole.Prompt(
+                new TextPrompt<string>("What's the person's phone number?")
+            );
+        }
+
+        // Ask for person's email and validate it
         person.Email = AnsiConsole.Confirm("Update email?")
             ? AnsiConsole.Ask<string>("Person's new email:")
             : person.Email;
